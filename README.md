@@ -83,18 +83,48 @@ Once both the backend and frontend servers are running, you can access the appli
 
 ---
 
-## 4. Deployment (Production Build)
+## 4. Deployment Guide
 
-To deploy the frontend to a static hosting service like GitHub Pages, Netlify, or Vercel, you need to create a production-ready build. This process compiles and optimizes the React code and generates static HTML, CSS, and JavaScript files, including the necessary `index.html`.
+Deploying this full-stack application involves two separate components: the **Backend API** and the **Frontend Application**.
 
-From the `frontend` directory, run the following command:
+### A. Deploying the Backend
 
-```bash
-# Navigate to the frontend directory if you are not already there
-cd frontend
+The FastAPI backend must be deployed to a hosting service that can run a Python web server (e.g., Vercel, Heroku, AWS, Google Cloud).
 
-# Create the production build
-npm run build
-```
+1.  **Choose a Hosting Provider**: Select a platform that supports Python/WSGI applications.
+2.  **Deploy**: Follow your chosen provider's instructions for deploying a FastAPI application. They will typically involve pointing the service to your `backend` directory and specifying how to run the server (e.g., using `uvicorn app.main:app`).
+3.  **Get the Public URL**: Once deployed, the service will provide you with a public URL for your API (e.g., `https://your-simsxcu-api.onrender.com`). You will need this URL for the next step.
 
-This command creates a `build` directory inside the `frontend` folder. The contents of this `build` directory are all you need to deploy the application. You can upload this folder to your hosting provider.
+### B. Deploying the Frontend to GitHub Pages
+
+The React frontend can be deployed to any static hosting service. Here are the instructions for deploying to **GitHub Pages**.
+
+1.  **Set the Backend API URL**:
+    The frontend needs to know the public URL of your deployed backend. You provide this using an environment variable named `REACT_APP_API_URL`.
+
+2.  **Build the Application**:
+    Run the build command from the `frontend` directory, prefixing it with your public API URL.
+
+    ```bash
+    # From the frontend directory
+    cd frontend
+
+    # Replace the URL with your actual deployed backend URL
+    REACT_APP_API_URL=https://your-simsxcu-api.onrender.com npm run build
+    ```
+    This command creates an optimized, production-ready build in the `frontend/build` directory. The `homepage` property in `package.json` is set to `.` to ensure all asset links are relative, which is required for GitHub Pages.
+
+3.  **Deploy to GitHub Pages**:
+    The easiest way to deploy the `build` folder is to use the `gh-pages` package.
+
+    ```bash
+    # Install the gh-pages package if you haven't already
+    npm install --save-dev gh-pages
+
+    # Add a "deploy" script to your package.json scripts section:
+    # "deploy": "gh-pages -d build"
+
+    # Run the deploy script
+    npm run deploy
+    ```
+    This will push the contents of your `build` directory to a new `gh-pages` branch on your GitHub repository, which will be automatically hosted by GitHub Pages.

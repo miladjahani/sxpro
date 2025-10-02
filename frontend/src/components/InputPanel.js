@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Select, Radio, Tooltip, Slider, Row, Col, Divider } from 'antd';
+import { Form, Input, Button, Select, Radio, Tooltip, Slider, Row, Col, Divider, InputNumber } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
@@ -44,6 +44,42 @@ const InputField = ({ name, label, unit, tooltip, children }) => (
     </Form.Item>
 );
 
+// Custom controlled component to combine an InputNumber and a Slider.
+// It receives `value` and `onChange` from the wrapping Form.Item.
+const CombinedSliderInput = ({ value, onChange, min, max, step }) => {
+    const handleValueChange = (newValue) => {
+        // Ensure that a valid number is passed to the form, even if the input is cleared.
+        const safeValue = newValue === null || newValue === undefined ? min : newValue;
+        if (onChange) {
+            onChange(safeValue);
+        }
+    };
+
+    return (
+        <Row align="middle">
+            <Col span={12}>
+                <InputNumber
+                    min={min}
+                    max={max}
+                    step={step}
+                    style={{ width: '95%', marginRight: '5%' }}
+                    value={value}
+                    onChange={handleValueChange}
+                />
+            </Col>
+            <Col span={12}>
+                <Slider
+                    min={min}
+                    max={max}
+                    step={step}
+                    onChange={handleValueChange}
+                    value={typeof value === 'number' ? value : min}
+                />
+            </Col>
+        </Row>
+    );
+};
+
 const SliderInputField = ({ name, label, unit, tooltip, min, max, step }) => (
     <Form.Item
         label={
@@ -57,14 +93,7 @@ const SliderInputField = ({ name, label, unit, tooltip, min, max, step }) => (
         name={name}
         rules={[{ required: true, message: `Please input the ${label}!` }]}
     >
-        <Row>
-            <Col span={12}>
-                <InputNumber min={min} max={max} step={step} style={{ width: '100%' }} />
-            </Col>
-            <Col span={12}>
-                <Slider min={min} max={max} step={step} />
-            </Col>
-        </Row>
+        <CombinedSliderInput min={min} max={max} step={step} />
     </Form.Item>
 );
 
@@ -85,9 +114,6 @@ const InputPanel = ({ onRunSimulation, loading }) => {
         setMode(e.target.value);
         form.resetFields(); // Reset fields when mode changes to avoid carrying over values
     };
-
-    // Ant Design's InputNumber component needs to be imported
-    const { InputNumber } = Input;
 
     return (
         <Form

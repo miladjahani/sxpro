@@ -1,7 +1,10 @@
 import axios from 'axios';
 
-// The base URL will be proxied to the FastAPI backend thanks to the "proxy" setting in package.json
-const API_URL = '/api/simulate';
+// Use the REACT_APP_API_URL environment variable for the production build,
+// otherwise, fall back to the relative path which will be handled by the proxy in development.
+const API_BASE_URL = process.env.REACT_APP_API_URL || '';
+
+const API_URL = `${API_BASE_URL}/api/simulate`;
 
 /**
  * Calls the simulation API with the provided input data.
