@@ -1,0 +1,131 @@
+/* General App Styling */
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #f0f2f5;
+  }
+
+  .app-container {
+    display: flex;
+    height: 100vh;
+    background-color: #f0f2f5;
+  }
+
+  /* Layout */
+  .ant-layout {
+    height: 100vh;
+  }
+
+  .ant-layout-header {
+    background: #fff;
+    padding: 0 24px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+  }
+
+  .header-content {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo {
+    height: 32px;
+    margin-right: 16px;
+  }
+
+  .ant-layout-sider {
+    background: #fff;
+    padding: 24px;
+    overflow: auto;
+    height: calc(100vh - 64px); /* Adjust for header height */
+    border-right: 1px solid #f0f0f0;
+  }
+
+  .ant-layout-content {
+    padding: 24px;
+    overflow: auto;
+    height: calc(100vh - 64px);
+  }
+
+  /* Input Panel */
+  .input-panel .ant-form-item {
+    margin-bottom: 16px;
+  }
+
+  .input-panel .ant-slider {
+    margin-left: 8px;
+  }
+
+  .input-panel .ant-form-item-label > label {
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    color: #001529;
+    border-bottom: 2px solid #1890ff;
+    padding-bottom: 8px;
+  }
+
+  .run-button {
+    width: 100%;
+    margin-top: 24px;
+  }
+
+  /* Output Panel */
+  .output-panel .ant-card {
+    margin-bottom: 24px;
+  }
+
+  .result-card-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1890ff;
+  }
+
+  .result-card-unit {
+    font-size: 1rem;
+    margin-left: 8px;
+    color: #595959;
+  }
+
+  /* Flowsheet Diagram */
+  .flowsheet-diagram {
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    padding: 16px;
+    background: #fff;
+    text-align: center;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 992px) {
+    .ant-layout-sider {
+      width: 100% !important;
+      max-width: none !important;
+      min-width: 0 !important;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .ant-layout-content {
+      height: auto;
+    }
+  }
+
+  .ant-table-wrapper {
+      margin-top: 20px;
+  }
+
+  .ant-alert {
+      margin-bottom: 20px;
+  }
