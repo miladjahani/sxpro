@@ -80,3 +80,21 @@ Once both the backend and frontend servers are running, you can access the appli
 -   Fill in the required parameters for the chosen mode.
 -   Click the **"Run Simulation"** button.
 -   View the results, including key metrics, the flowsheet diagram, and McCabe-Thiele plots, in the **Output Panel** on the right.
+
+---
+
+## 4. Deployment (Production Build)
+
+To deploy the frontend to a static hosting service like GitHub Pages, Netlify, or Vercel, you need to create a production-ready build. This process compiles and optimizes the React code and generates static HTML, CSS, and JavaScript files, including the necessary `index.html`.
+
+From the `frontend` directory, run the following command:
+
+```bash
+# Navigate to the frontend directory if you are not already there
+cd frontend
+
+# Create the production build
+npm run build
+```
+
+This command creates a `build` directory inside the `frontend` folder. The contents of this `build` directory are all you need to deploy the application. You can upload this folder to your hosting provider.
